@@ -1,5 +1,7 @@
 Library independent "Promise" implementation
 
+(NB the Util.loop function is not included in this library - it is assumed to be a generic "forEach" style implementation passing the index as the parameter)
+
 ```javascript
 
 var defs = [], 
