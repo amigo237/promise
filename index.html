@@ -1,0 +1,21 @@
+<script src="promise.js"></script>
+<script>
+    
+    var p1 = new Promise();
+    var p2 = new Promise();
+    var p3 = new Promise();
+    
+    Promise.when(p1,p2,p3).then(function(){
+        alert('passed');
+    },function(){
+        alert('failed');
+    });
+    
+    p1.resolve('test1','test2');
+    p2.resolve('test3','test4');
+    p3.resolve('test5','test6');
+    
+    
+    
+    
+</script>
