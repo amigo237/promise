@@ -1,24 +1,46 @@
 Library independent "Promise" implementation
 
-(NB the Util.loop function is not included in this library - it is assumed to be a generic "forEach" style implementation passing the index as the parameter)
+```html
 
-```javascript
+<html>
+    <head>
+        <script src="promise.js"></script>
+    </head>
+    <body>
+        <p>Please type the word "password" into both fields - be sure to get it right first time!</p>
+        <input><br>
+        <input>
+        <script>
+            
+            function forEach(arr,callback){
+                for(var i = 0;i< arr.length; i++) callback.call(arr[i],i,arr[i]);
+            }
+            
+            function set(){
+                var defs = [], 
+                inputs = document.getElementsByTagName('input');
 
-var defs = [], 
-    inputs = document.getElementsByTagName('input');
+                forEach(inputs,function(i){
+                    
+                    this.style.border = "1px solid black";
+                    
+                    defs[i] = Promise();
 
-Util.loop(inputs,function(i){
-    defs[i] = Promise();
-    input[i].onChange = function(){
-        input[i].value != '' ? defs[i].resolve() : defs[i].reject(input[i]);
-    }  
-});
+                    this.onchange = function(){
+                        this.value == 'password' ? defs[i].resolve() : defs[i].reject(this);
+                    }  
+                });
 
-Promise.when(defs).then(function(){
-    alert('Fields are not empty');
-},function(input){
-    input.style.border = "1px solid red";
-    alert('The red field is empty');
-});
+                Promise.when(defs).then(function(){
+                    alert('You typed password into both fields');
+                },function(input){
+                    input.style.border = "1px solid red";
+                    alert('Oh no you got this field wrong!');
+                }).always(set);
+            }
+            set();
+        </script>
+    </body>
+</html>
 
 ```

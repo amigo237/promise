@@ -1,21 +1,40 @@
-<script src="promise.js"></script>
-<script>
-    
-    var p1 = new Promise();
-    var p2 = new Promise();
-    var p3 = new Promise();
-    
-    Promise.when(p1,p2,p3).then(function(){
-        alert('passed');
-    },function(){
-        alert('failed');
-    });
-    
-    p1.resolve('test1','test2');
-    p2.resolve('test3','test4');
-    p3.resolve('test5','test6');
-    
-    
-    
-    
-</script>
+<html>
+    <head>
+        <script src="promise.js"></script>
+    </head>
+    <body>
+        <p>Please type the word "password" into both fields - be sure to get it right first time!</p>
+        <input><br>
+        <input>
+        <script>
+            
+            function forEach(arr,callback){
+                for(var i = 0;i< arr.length; i++) callback.call(arr[i],i,arr[i]);
+            }
+            
+            function set(){
+                var defs = [], 
+                inputs = document.getElementsByTagName('input');
+
+                forEach(inputs,function(i){
+                    
+                    this.style.border = "1px solid black";
+                    
+                    defs[i] = Promise();
+
+                    this.onchange = function(){
+                        this.value == 'password' ? defs[i].resolve() : defs[i].reject(this);
+                    }  
+                });
+
+                Promise.when(defs).then(function(){
+                    alert('You typed password into both fields');
+                },function(input){
+                    input.style.border = "1px solid red";
+                    alert('Oh no you got this field wrong!');
+                }).always(set);
+            }
+            set();
+        </script>
+    </body>
+</html>
