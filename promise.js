@@ -1,4 +1,4 @@
-Promise = function() {
+var Promise = function() {
     var defer = function() {
         return new function() {
             var state = null,
