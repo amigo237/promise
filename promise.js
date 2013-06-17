@@ -38,10 +38,12 @@ var Promise = function() {
             this.resolve = function() {
                 state = true;
                 fire(arguments);
+                return this;
             };
             this.reject = function() {
                 state = false;
                 fire(arguments);
+                return this;
             };
         };
     };
@@ -59,7 +61,7 @@ var Promise = function() {
             });
         }
 
-        return deferred;
+        return args.length === 0 ? deferred.resolve() : deferrred;
     };
 
     return defer;
