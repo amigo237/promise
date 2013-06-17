@@ -61,7 +61,7 @@ var Promise = function() {
             });
         }
 
-        return args.length === 0 ? deferred.resolve() : deferrred;
+        return args.length === 0 ? deferred.resolve() : deferred;
     };
 
     return defer;
